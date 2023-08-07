@@ -1,0 +1,386 @@
+[
+    {
+        "id": "7b9ed63e.2138f8",
+        "type": "tab",
+        "label": "led_button_flow",
+        "disabled": false,
+        "info": "# Basic flow to start with STM32CubeMonitor."
+    },
+    {
+        "id": "6013fb0b.5b7504",
+        "type": "acquisition out",
+        "z": "7b9ed63e.2138f8",
+        "name": "myProbe_Out",
+        "probeconfig": "aceb399050751d8f",
+        "x": 940,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "d59587ff.cd1748",
+        "type": "variables",
+        "z": "7b9ed63e.2138f8",
+        "groupname": "myVariables",
+        "accesspoint": 0,
+        "execonfig": "21b1776a0b68d914",
+        "variablelist": [],
+        "triggerstartmode": "manual",
+        "triggername": "led_state",
+        "triggerthreshold": "30000",
+        "frequency": "",
+        "frequencyType": "0",
+        "snapshotheader": "",
+        "mode": "direct",
+        "lastImportedTime": 1691413096050,
+        "openStatus": true,
+        "x": 510,
+        "y": 240,
+        "wires": [
+            [
+                "6013fb0b.5b7504"
+            ],
+            [
+                "f14d0398.f1861"
+            ]
+        ]
+    },
+    {
+        "id": "5fd51c96.2330e4",
+        "type": "ui_button",
+        "z": "7b9ed63e.2138f8",
+        "name": "",
+        "group": "f9c34dde.1e2f4",
+        "order": 1,
+        "width": 5,
+        "height": 1,
+        "passthru": false,
+        "label": "START Acquisition",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "start",
+        "topicType": "str",
+        "x": 290,
+        "y": 200,
+        "wires": [
+            [
+                "d59587ff.cd1748"
+            ]
+        ]
+    },
+    {
+        "id": "52eadfe3.2c8cc",
+        "type": "ui_button",
+        "z": "7b9ed63e.2138f8",
+        "name": "",
+        "group": "f9c34dde.1e2f4",
+        "order": 2,
+        "width": 5,
+        "height": 1,
+        "passthru": true,
+        "label": "STOP Acquisition",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "stop",
+        "topicType": "str",
+        "x": 290,
+        "y": 280,
+        "wires": [
+            [
+                "d59587ff.cd1748"
+            ]
+        ]
+    },
+    {
+        "id": "f14d0398.f1861",
+        "type": "ui_toast",
+        "z": "7b9ed63e.2138f8",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 730,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f6e3bd343007846b",
+        "type": "template",
+        "z": "7b9ed63e.2138f8",
+        "name": "write_msg",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n  \"variablelist\":\n  [\n    {\n    \"address\": \"0x2000006c\",\n    \"name\": \"led_state\",\n    \"type\": 1,\n    \"checked\": true,\n    \"$$hashKey\": \"object:51\",\n    \"value\": \"{{payload}}\",\n    \"validity\": true\n    }\n  ],\n  \"accespoint\": 0\n}",
+        "output": "json",
+        "x": 510,
+        "y": 100,
+        "wires": [
+            [
+                "6955c4f6acf3d339"
+            ]
+        ]
+    },
+    {
+        "id": "d6e749337b8cf207",
+        "type": "ui_switch",
+        "z": "7b9ed63e.2138f8",
+        "name": "",
+        "label": "Led switch",
+        "tooltip": "",
+        "group": "f9c34dde.1e2f4",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 310,
+        "y": 60,
+        "wires": [
+            [
+                "f6e3bd343007846b"
+            ]
+        ]
+    },
+    {
+        "id": "6955c4f6acf3d339",
+        "type": "change",
+        "z": "7b9ed63e.2138f8",
+        "name": "set_topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "write",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 160,
+        "wires": [
+            [
+                "6013fb0b.5b7504"
+            ]
+        ]
+    },
+    {
+        "id": "aceb399050751d8f",
+        "type": "probe",
+        "probeid": "0670FF515356836687221513",
+        "probename": "ST-Link v2-1B 0670FF515356836687221513",
+        "protocol": "SWD",
+        "frequency": "1.8 MHz - Default",
+        "probeproperty": "{\"SWD\":[\"4.6 MHz\",\"1.8 MHz - Default\",\"950 kHz\",\"400 kHz\",\"150 kHz\"],\"JTAG\":[\"18 MHz\",\"9 MHz\",\"4.5 MHz\",\"2.25 MHz\",\"1.12 MHz - Default\",\"560 kHz\",\"280 kHz\",\"140 kHz\"]}",
+        "probeversion": "ST Link firmware version V2.J42",
+        "connectionType": "p2p",
+        "nickname": "Nucleo-F411RE"
+    },
+    {
+        "id": "21b1776a0b68d914",
+        "type": "exe-config",
+        "name": "myVariable",
+        "exefile": "C:\\Users\\HP\\Desktop\\experimental_ws\\cube_monitor_led_toggle\\Debug\\cube_monitor_led_toggle.elf",
+        "exefolder": "C:\\Users\\HP\\Desktop\\experimental_ws\\cube_monitor_led_toggle\\Debug",
+        "exevariablelist": [
+            {
+                "address": "0x08001de4",
+                "name": "AHBPrescTable[0]",
+                "type": 1
+            },
+            {
+                "address": "0x08001df4",
+                "name": "APBPrescTable[0]",
+                "type": 1
+            },
+            {
+                "address": "0x20000068",
+                "name": "huart2.ErrorCode",
+                "type": 5
+            },
+            {
+                "address": "0x20000065",
+                "name": "huart2.gState",
+                "type": 2
+            },
+            {
+                "address": "0x20000060",
+                "name": "huart2.hdmarx",
+                "type": 5
+            },
+            {
+                "address": "0x2000005c",
+                "name": "huart2.hdmatx",
+                "type": 5
+            },
+            {
+                "address": "0x2000002c",
+                "name": "huart2.Init.BaudRate",
+                "type": 5
+            },
+            {
+                "address": "0x20000040",
+                "name": "huart2.Init.HwFlowCtl",
+                "type": 5
+            },
+            {
+                "address": "0x2000003c",
+                "name": "huart2.Init.Mode",
+                "type": 5
+            },
+            {
+                "address": "0x20000044",
+                "name": "huart2.Init.OverSampling",
+                "type": 5
+            },
+            {
+                "address": "0x20000038",
+                "name": "huart2.Init.Parity",
+                "type": 5
+            },
+            {
+                "address": "0x20000034",
+                "name": "huart2.Init.StopBits",
+                "type": 5
+            },
+            {
+                "address": "0x20000030",
+                "name": "huart2.Init.WordLength",
+                "type": 5
+            },
+            {
+                "address": "0x20000028",
+                "name": "huart2.Instance",
+                "type": 5
+            },
+            {
+                "address": "0x20000064",
+                "name": "huart2.Lock",
+                "type": 2
+            },
+            {
+                "address": "0x20000050",
+                "name": "huart2.pRxBuffPtr",
+                "type": 5
+            },
+            {
+                "address": "0x20000048",
+                "name": "huart2.pTxBuffPtr",
+                "type": 5
+            },
+            {
+                "address": "0x20000058",
+                "name": "huart2.ReceptionType",
+                "type": 5
+            },
+            {
+                "address": "0x20000066",
+                "name": "huart2.RxState",
+                "type": 2
+            },
+            {
+                "address": "0x20000056",
+                "name": "huart2.RxXferCount",
+                "type": 3
+            },
+            {
+                "address": "0x20000054",
+                "name": "huart2.RxXferSize",
+                "type": 3
+            },
+            {
+                "address": "0x2000004e",
+                "name": "huart2.TxXferCount",
+                "type": 3
+            },
+            {
+                "address": "0x2000004c",
+                "name": "huart2.TxXferSize",
+                "type": 3
+            },
+            {
+                "address": "0x2000006c",
+                "name": "led_state",
+                "type": 1,
+                "checked": true
+            },
+            {
+                "address": "0x20000000",
+                "name": "SystemCoreClock",
+                "type": 5
+            },
+            {
+                "address": "0x20000070",
+                "name": "uwTick",
+                "type": 5
+            },
+            {
+                "address": "0x20000008",
+                "name": "uwTickFreq",
+                "type": 2
+            },
+            {
+                "address": "0x20000004",
+                "name": "uwTickPrio",
+                "type": 5
+            }
+        ],
+        "expand": false,
+        "filename": "cube_monitor_led_toggle.elf",
+        "exeModifiedTime": 1691394641233,
+        "configLastUpdate": 1691413095719
+    },
+    {
+        "id": "f9c34dde.1e2f4",
+        "type": "ui_group",
+        "name": "Chart",
+        "tab": "17d09b07.741a55",
+        "order": 1,
+        "disp": true,
+        "width": 15,
+        "collapse": false
+    },
+    {
+        "id": "17d09b07.741a55",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
