@@ -80,7 +80,7 @@ void Ophir_Command_Stack_Push(){
 	// Reset U1_C.
 	Ophir_U1_Command_Reset();
 }
-*******************************************************************************
+/*******************************************************************************
  * @Function_Name   : Ophir_Command_Stack_Pull
  * @Function_Input  : None.
  * @Function_Output : None.
